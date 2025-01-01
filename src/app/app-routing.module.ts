@@ -1,17 +1,21 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ChooseColorComponent } from './components/choose-color/choose-color.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { ChooseColorComponent } from "./components/choose-color/choose-color.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: ChooseColorComponent,
-    pathMatch: 'full'
-  }
+    pathMatch: "full",
+  },
+  {
+    path: "**",
+    redirectTo: "",
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

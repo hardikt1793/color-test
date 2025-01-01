@@ -1,5 +1,5 @@
 <div class="container">
-  <ng-container *ngIf="!showLoader">
+  <ng-container *ngIf="!isShowLoader">
     <h2>
       {{
         isSubmitted ? "Thank you for playing!" : "What is your favorite color?"
@@ -7,15 +7,15 @@
     </h2>
 
     <div class="controls" *ngIf="!isSubmitted && colorCombination">
-      <button (click)="buttonClick(colorCombination, colorCombination.Color1)">
+      <button (click)="updateInputOutputSheet(colorCombination.Color1)">
         {{ colorCombination.Color1 }}
       </button>
-      
-      <button (click)="buttonClick(colorCombination, colorCombination.Color2)">
+
+      <button (click)="updateInputOutputSheet(colorCombination.Color2)">
         {{ colorCombination.Color2 }}
       </button>
     </div>
   </ng-container>
 
-  <div class="loader" *ngIf="showLoader"></div>
+  <div class="loader" *ngIf="isShowLoader"></div>
 </div>

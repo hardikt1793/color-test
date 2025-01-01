@@ -1,41 +1,55 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-
-export interface Sheet {
-  id?: string | number;
-  Index: string;
-  Selected: string | number;
-  Appeared: string | number;
-  Color1: string;
-  Color2: string;
-}
-
-export interface SheetOutPut {
-  Color: string;
-  Chosen: string | number;
-}
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+import { Sheet } from "../models/sheet.model";
+import { SheetOutput } from "../models/sheet-output.model";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class GoogleSheetService {
   constructor(private http: HttpClient) {}
 
-  getInputSheet():Observable<Sheet[]> {
+  /**
+   * Get the input sheet details.
+   * @returns input sheet
+   */
+  getInputSheet(): Observable<Sheet[]> {
     return this.http.get<Sheet[]>(`${environment.URL}`);
   }
 
-  updateInputSheet(id:any, reqBody: Sheet): Observable<Sheet[]> {
+  /**
+   * To update the input sheet with the payload details.
+   * @param id - sheet id
+   * @param reqBody - details to be updated.
+   * @returns
+   */
+  updateInputSheet(id: number, reqBody: Sheet): Observable<Sheet[]> {
     return this.http.put<Sheet[]>(`${environment.URL}/${id}`, reqBody);
   }
 
-  updateOutPutSheet(id:any, reqBody: SheetOutPut): Observable<SheetOutPut[]> {
-    return this.http.put<SheetOutPut[]>(`${environment.URL}/tabs/Output/${id}`, reqBody);
+  /**
+   * To update the output sheet with the payload details.
+   * @param id - sheet id
+   * @param reqBody - details to be updated.
+   * @returns
+   */
+  updateOutputSheet(
+    id: number,
+    reqBody: SheetOutput
+  ): Observable<SheetOutput[]> {
+    return this.http.put<SheetOutput[]>(
+      `${environment.URL}/tabs/Output/${id}`,
+      reqBody
+    );
   }
 
-  getOutPutSheet(): Observable<SheetOutPut[]> {
-    return this.http.get<SheetOutPut[]>(`${environment.URL}/tabs/Output`);
+  /**
+   * Get the output sheet details.
+   * @returns output sheet
+   */
+  getOutputSheet(): Observable<SheetOutput[]> {
+    return this.http.get<SheetOutput[]>(`${environment.URL}/tabs/Output`);
   }
 }
